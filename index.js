@@ -20,8 +20,8 @@ const mongodb_database = process.env.MONGODB_DATABASE;
 const mongodb_session_secret = process.env.MONGODB_SESSION_SECRET;
 const node_session_secret = process.env.NODE_SESSION_SECRET;
 
-var {database} = require('./databaseConnection');
-const userCollection = database.db(mongodb_database).collection('users');
+var { database } = require('./databaseConnection');
+const userCollection = database.collection('users');
 
 var mongoStore = MongoStore.create({
 	mongoUrl: `mongodb+srv://${mongodb_user}:${mongodb_password}@${mongodb_host}/?retryWrites=true&w=majority`,

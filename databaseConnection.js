@@ -12,7 +12,7 @@ const atlasURI = `mongodb+srv://${mongodb_user}:${mongodb_password}`
                 + `@${mongodb_host}/${mongodb_database}`
                 + `?retryWrites=true&w=majority&ssl=true`;
 
-var database = new MongoClient(atlasURI, {
+var client = new MongoClient(atlasURI, {
     tlsAllowInvalidCertificates: true,
     tlsAllowInvalidHostnames:    true
 });

@@ -29,5 +29,4 @@ client.connect()
         process.exit(1);
     });
 
-const database = client.db(mongodb_database);
 module.exports = { database };

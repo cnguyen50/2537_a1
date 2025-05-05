@@ -15,4 +15,19 @@ const atlasURI = `mongodb+srv://${mongodb_user}:${mongodb_password}`
 
 var database = new MongoClient(atlasURI, {});
 
-module.exports = {database};
+// Added the tlsInsecure flag here to bypass the SSL alert
+var client = new MongoClient(atlasURI, {
+    useNewUrlParser:     true,
+    useUnifiedTopology:  true,
+    tlsInsecure:         true
+});
+
+client.connect()
+    .then(() => console.log(`✅ MongoDB connected to "${mongodb_database}"`))
+    .catch(err => {
+        console.error(' MongoDB connection error:', err);
+        process.exit(1);
+    });
+
+const database = client.db(mongodb_database);
+module.exports = { database };

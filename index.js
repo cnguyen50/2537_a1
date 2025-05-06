@@ -54,23 +54,7 @@ app.use(session({
 ));
 
 app.get('/', (req, res) => {
-    if (req.session.authenticated) {
-        const user = req.session.username;
-    // If logged in, shows Members link and Log Out
-    return res.send(`
-        <h1>Hello, ${user}</h1>
-        <a href="/members"><button>Go To Members Area</button></a> 
-        <br/>
-        <a href="/logout"><button>Log Out</button></a>
-    `);
-    }
-    // If not logged in, displays signup and login links
-    res.send(`
-        <h1>Assignment 1</h1>
-        <a href="/signup"><button>Sign Up</button></a> 
-        <br/>
-        <a href="/login"><button>Log In</button></a>
-    `);
+    res.render('index', {session: req.session})
 });
 
 app.get('/signup', (req, res) => {

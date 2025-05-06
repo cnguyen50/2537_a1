@@ -33,6 +33,8 @@ var mongoStore = MongoStore.create({
 app.use(express.urlencoded({extended: false}));
 app.use(express.static(__dirname + "/public"));
 
+app.set('view engine', 'ejs');
+
 function requireAuth(req, res, next) {
     if (req.session.authenticated) {
         return next();

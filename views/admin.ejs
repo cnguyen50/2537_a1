@@ -1,0 +1,25 @@
+<%- include('templates/header') %>
+
+<div class="container mt-5">
+    <h1>Admin</h1>
+    <table class="table">
+        <thead><tr><th>User</th><th>Role</th><th>Action</th></tr></thead>
+        <tbody>
+        <% users.forEach(u => { %>
+        <tr>
+            <td><%= u.username %></td>
+            <td><%= u.user_type %></td>
+            <td>
+            <% if (u.user_type === 'user') { %>
+                <a href="/admin/promote?user=<%= u.username %>" class="btn btn-sm btn-success">Promote</a>
+            <% } else { %>
+                <a href="/admin/demote?user=<%= u.username %>" class="btn btn-sm btn-warning">Demote</a>
+            <% } %>
+            </td>
+        </tr>
+        <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('templates/footer') %>

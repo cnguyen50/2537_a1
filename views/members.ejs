@@ -1,0 +1,15 @@
+<%- include('templates/header') %>
+
+<div class="container mt-5">
+    <h1>Hello, <%= user %>!</h1>
+    <div class="row">
+        <% image.forEach(src => { %>
+        <div class="col-12 col-sm-6 col-md-4 mb-3">
+            <img src="<%= src %>" class="img-fluid rounded" />
+        </div>
+        <% }) %>
+    </div>
+</div>
+
+<%- include('templates/footer') %>
+

@@ -35,7 +35,8 @@ const navLinks = [
     {name: "Members", link: "/members"},
     {name: "Login", link: "/login"},
     {name: "Admin", link: "/admin"},
-    {name: "404", link: "/dne"}
+    {name: "404", link: "/dne"},
+    {name: "Logout", link: "/logout"},
 ]
 
 app.use(express.urlencoded({extended: false}));
@@ -57,6 +58,18 @@ function requireAuth(req, res, next) {
         return next();
     }
     res.redirect('/');
+}
+
+function requireAdmin(req, res, next) {
+    if (!req.session.authenticated) {
+        return res.redirect('/login')
+    }
+    if (req.session.user_type !== 'admin') {
+        return res
+            .status(403)
+            .render('404', { message: 'No access' })
+    }
+    next();
 }
 
 app.use(session({ 
@@ -185,17 +198,6 @@ app.get('/members', requireAuth, (req, res) => {
     })
 });
 
-function requireAdmin(req, res, next) {
-    if (!req.session.authenticated) {
-        return res.redirect('/login')
-    }
-    if (req.session.user_type !== 'admin') {
-        return res
-            .status(403)
-            .render('404', { message: 'No access' })
-    }
-    next();
-}
 
 app.get('/admin', requireAdmin, async (req, res) => {
     const users = await userCollection.find().toArray();
